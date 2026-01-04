@@ -1,0 +1,78 @@
+name: zero
+description: "ZERO - From Zero to Legendary. A gamified life progression app."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_bloc: ^9.0.0
+  equatable: ^2.0.7
+
+  # Navigation
+  go_router: ^15.1.1
+
+  # Dependency Injection
+  get_it: ^8.0.3
+  injectable: ^2.5.0
+
+  # Firebase (Free Spark Plan)
+  firebase_core: ^3.12.1
+  firebase_auth: ^5.5.4
+  cloud_firestore: ^5.6.7
+  firebase_storage: ^12.4.4
+
+  # Local Storage (Offline-first, reduces Firebase reads)
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.5.3
+
+  # Code Generation
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # UI
+  flutter_svg: ^2.0.17
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  flutter_animate: ^4.5.2
+
+  # Utilities
+  intl: ^0.20.2
+  uuid: ^4.5.1
+  collection: ^1.19.1
+
+  # Icons
+  cupertino_icons: ^1.0.8
+  phosphor_flutter: ^2.1.0
+
+  # Google Sign In
+  google_sign_in: ^6.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+  # Code Generation
+  build_runner: ^2.4.15
+  freezed: ^2.5.8
+  json_serializable: ^6.9.4
+  injectable_generator: ^2.7.0
+
+  # Testing
+  mocktail: ^1.0.4
+  bloc_test: ^10.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/animations/

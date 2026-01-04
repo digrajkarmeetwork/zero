@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter create:*)",
+      "Bash(where:*)",
+      "Bash(dir \"C:\\flutter\\bin\\flutter.bat\")",
+      "Bash(dir:*)",
+      "Bash(dir \"%LOCALAPPDATA%\\flutter\\bin\\flutter.bat\")",
+      "Bash(dir \"%USERPROFILE%\\flutter\\bin\\flutter.bat\")",
+      "Bash(cmd /c \"where flutter\")",
+      "Bash(cmd /c \"flutter --version\")",
+      "Bash(cmd /c:*)",
+      "Bash(powershell:*)",
+      "Bash(C:flutterbinflutter.bat --version)",
+      "Bash(C:flutterbinflutter analyze)",
+      "Bash(/c/flutter/bin/flutter analyze)",
+      "Bash(npm install:*)",
+      "Bash(/c/flutter/bin/dart pub global activate:*)",
+      "Bash(\"C:/Users/digra/AppData/Local/Pub/Cache/bin/flutterfire.bat\" configure --project=zerolevelingapp --platforms=android,ios)",
+      "Bash(export PATH=\"/c/flutter/bin:$PATH\")",
+      "Bash(dart pub global run flutterfire_cli:flutterfire configure:*)",
+      "Bash(curl -sL https://firebase.tools -o /tmp/firebase-install.ps1)",
+      "Bash(curl:*)",
+      "Bash(/c/Users/digra/node-v20.11.0-win-x64/node.exe:*)",
+      "Bash(export PATH=\"/c/Users/digra/node-v20.11.0-win-x64:$PATH\":*)",
+      "Bash(firebase:*)",
+      "Bash(export PATH=\"/c/Users/digra/node-v20.11.0-win-x64:/c/flutter/bin:$PATH\")",
+      "Bash(/c/flutter/bin/flutter devices:*)",
+      "Bash(/c/flutter/bin/flutter run:*)",
+      "Bash(/c/flutter/bin/flutter clean:*)",
+      "Bash(/c/flutter/bin/flutter pub get:*)",
+      "Bash(/c/flutter/bin/flutter create:*)"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isValidUser() {
+      return request.resource.data.keys().hasAll(['email']) &&
+             request.resource.data.email is string;
+    }
+
+    function isValidCharacter() {
+      return request.resource.data.keys().hasAll(['buildPath', 'attributes']) &&
+             request.resource.data.buildPath is string;
+    }
+
+    function isValidActivity() {
+      return request.resource.data.keys().hasAll(['userId', 'name', 'attribute', 'baseXp']) &&
+             request.resource.data.userId == request.auth.uid;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isOwner(userId);
+      allow update: if isAuthenticated() && isOwner(userId);
+      allow delete: if isAuthenticated() && isOwner(userId);
+    }
+
+    // Characters collection
+    match /characters/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isOwner(userId);
+      allow update: if isAuthenticated() && isOwner(userId);
+      allow delete: if isAuthenticated() && isOwner(userId);
+    }
+
+    // Activities collection
+    match /activities/{activityId} {
+      allow read: if isAuthenticated() &&
+                    resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated() && isValidActivity();
+      allow update: if isAuthenticated() &&
+                      resource.data.userId == request.auth.uid;
+      allow delete: if isAuthenticated() &&
+                      resource.data.userId == request.auth.uid;
+    }
+
+    // Activity templates collection
+    match /activity_templates/{templateId} {
+      // Anyone authenticated can read templates
+      allow read: if isAuthenticated();
+
+      // Only the creator can modify custom templates
+      allow create: if isAuthenticated() &&
+                      request.resource.data.createdBy == request.auth.uid;
+      allow update: if isAuthenticated() &&
+                      resource.data.createdBy == request.auth.uid;
+      allow delete: if isAuthenticated() &&
+                      resource.data.createdBy == request.auth.uid;
+    }
+
+    // Quests collection (system-generated)
+    match /quests/{questId} {
+      allow read: if isAuthenticated();
+      // Only cloud functions can write quests
+      allow write: if false;
+    }
+
+    // User quests collection
+    match /user_quests/{userQuestId} {
+      allow read: if isAuthenticated() &&
+                    resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated() &&
+                      request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() &&
+                      resource.data.userId == request.auth.uid;
+      allow delete: if false; // Don't allow deletion of quest progress
+    }
+
+    // Guilds collection
+    match /guilds/{guildId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() &&
+                      resource.data.leaderId == request.auth.uid;
+      allow delete: if isAuthenticated() &&
+                      resource.data.leaderId == request.auth.uid;
+
+      // Guild members subcollection
+      match /members/{userId} {
+        allow read: if isAuthenticated();
+        allow create: if isAuthenticated() && isOwner(userId);
+        allow update: if isAuthenticated() &&
+                        (isOwner(userId) ||
+                         get(/databases/$(database)/documents/guilds/$(guildId)).data.leaderId == request.auth.uid);
+        allow delete: if isAuthenticated() &&
+                        (isOwner(userId) ||
+                         get(/databases/$(database)/documents/guilds/$(guildId)).data.leaderId == request.auth.uid);
+      }
+    }
+
+    // Leaderboards (read-only for users, written by cloud functions)
+    match /leaderboards/{leaderboardId} {
+      allow read: if isAuthenticated();
+      allow write: if false;
+    }
+
+    // Rivalries collection
+    match /rivalries/{rivalryId} {
+      allow read: if isAuthenticated() &&
+                    (resource.data.challengerId == request.auth.uid ||
+                     resource.data.challengedId == request.auth.uid);
+      allow create: if isAuthenticated() &&
+                      request.resource.data.challengerId == request.auth.uid;
+      allow update: if isAuthenticated() &&
+                      (resource.data.challengerId == request.auth.uid ||
+                       resource.data.challengedId == request.auth.uid);
+      allow delete: if false;
+    }
+  }
+}
