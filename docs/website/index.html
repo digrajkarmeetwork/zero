@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZERO - From Zero to Legendary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #00D9FF;
+            --background: #0A0E1A;
+            --surface: #12182B;
+            --text-primary: #FFFFFF;
+            --text-secondary: #8B93B0;
+            --vitality: #FF4757;
+            --intellect: #3498DB;
+            --prosperity: #2ECC71;
+            --agility: #F39C12;
+            --charisma: #9B59B6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background:
+                radial-gradient(ellipse at top, rgba(108, 99, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(0, 217, 255, 0.1) 0%, transparent 50%),
+                var(--background);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>');
+            background-size: 50px 50px;
+            opacity: 0.3;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(108, 99, 255, 0.5);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .description {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 3rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), #5a52d4);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 40px rgba(108, 99, 255, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(108, 99, 255, 0.6);
+        }
+
+        .download-btn svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .features {
+            padding: 6rem 2rem;
+            background: var(--surface);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .attributes {
+            padding: 6rem 2rem;
+        }
+
+        .attributes-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .attribute-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .attribute-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+        }
+
+        .attribute-row.vitality { border-color: var(--vitality); }
+        .attribute-row.intellect { border-color: var(--intellect); }
+        .attribute-row.prosperity { border-color: var(--prosperity); }
+        .attribute-row.agility { border-color: var(--agility); }
+        .attribute-row.charisma { border-color: var(--charisma); }
+
+        .attribute-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            text-align: center;
+        }
+
+        .attribute-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .attribute-row.vitality h3 { color: var(--vitality); }
+        .attribute-row.intellect h3 { color: var(--intellect); }
+        .attribute-row.prosperity h3 { color: var(--prosperity); }
+        .attribute-row.agility h3 { color: var(--agility); }
+        .attribute-row.charisma h3 { color: var(--charisma); }
+
+        .attribute-info p {
+            color: var(--text-secondary);
+        }
+
+        .ranks {
+            padding: 6rem 2rem;
+            background: var(--surface);
+            text-align: center;
+        }
+
+        .ranks-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .rank-badge {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid;
+            transition: all 0.3s ease;
+        }
+
+        .rank-badge:hover {
+            transform: scale(1.1);
+        }
+
+        .rank-badge.unranked { border-color: #6B7280; color: #6B7280; }
+        .rank-badge.iron { border-color: #9CA3AF; color: #9CA3AF; }
+        .rank-badge.bronze { border-color: #CD7F32; color: #CD7F32; }
+        .rank-badge.silver { border-color: #C0C0C0; color: #C0C0C0; }
+        .rank-badge.gold { border-color: #FFD700; color: #FFD700; }
+        .rank-badge.platinum { border-color: #E5E4E2; color: #E5E4E2; }
+        .rank-badge.diamond { border-color: #B9F2FF; color: #B9F2FF; }
+        .rank-badge.master { border-color: #9B59B6; color: #9B59B6; }
+        .rank-badge.grandmaster { border-color: #FF6B6B; color: #FF6B6B; }
+        .rank-badge.mythic {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 107, 107, 0.2));
+            color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
+                letter-spacing: 0.2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+                letter-spacing: 0.1rem;
+            }
+
+            .description {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .attribute-row {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1 class="logo">ZERO</h1>
+        <p class="tagline">From Zero to Legendary</p>
+        <p class="description">
+            Transform your daily habits into an epic RPG adventure. Track activities,
+            earn XP, level up your attributes, and rise through the ranks from Unranked to Mythic.
+        </p>
+        <a href="https://github.com/digrajkarmeetwork/zero/releases/download/v1.0.0/app-release.apk" class="download-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.523 0H6.477a1.5 1.5 0 00-1.5 1.5v21a1.5 1.5 0 001.5 1.5h11.046a1.5 1.5 0 001.5-1.5v-21a1.5 1.5 0 00-1.5-1.5zM12 22.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5-4.5H7V3h10v15z"/>
+            </svg>
+            Download for Android
+        </a>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">GAME YOUR LIFE</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3 class="feature-title">RPG Progression</h3>
+                <p class="feature-desc">Level up your character by completing real-life activities. Every workout, book read, or skill learned earns you XP.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">5 Core Attributes</h3>
+                <p class="feature-desc">Balance Vitality, Intellect, Prosperity, Agility, and Charisma to become a well-rounded legendary character.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Rank System</h3>
+                <p class="feature-desc">Start as Unranked and climb through 10 ranks all the way to the legendary Mythic status.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔥</div>
+                <h3 class="feature-title">Streak Tracking</h3>
+                <p class="feature-desc">Build daily streaks to unlock bonus multipliers. Consistency is the key to becoming legendary.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Quick Logging</h3>
+                <p class="feature-desc">Log activities in seconds with predefined templates. No complicated tracking - just tap and earn XP.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Build Paths</h3>
+                <p class="feature-desc">Choose your specialization: Warrior, Scholar, Entrepreneur, Speed Demon, or Leader. Each path has unique bonuses.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="attributes">
+        <h2 class="section-title">MASTER YOUR ATTRIBUTES</h2>
+        <div class="attributes-container">
+            <div class="attribute-row vitality">
+                <div class="attribute-icon">❤️</div>
+                <div class="attribute-info">
+                    <h3>VITALITY</h3>
+                    <p>Physical health, fitness, and energy. Level up through workouts, healthy eating, and quality sleep.</p>
+                </div>
+            </div>
+            <div class="attribute-row intellect">
+                <div class="attribute-icon">🧠</div>
+                <div class="attribute-info">
+                    <h3>INTELLECT</h3>
+                    <p>Knowledge, learning, and mental sharpness. Gain XP from reading, courses, and problem-solving.</p>
+                </div>
+            </div>
+            <div class="attribute-row prosperity">
+                <div class="attribute-icon">💰</div>
+                <div class="attribute-info">
+                    <h3>PROSPERITY</h3>
+                    <p>Financial health and wealth building. Earn through saving, investing, and side hustles.</p>
+                </div>
+            </div>
+            <div class="attribute-row agility">
+                <div class="attribute-icon">⚡</div>
+                <div class="attribute-info">
+                    <h3>AGILITY</h3>
+                    <p>Productivity, time management, and efficiency. Complete tasks and maintain routines.</p>
+                </div>
+            </div>
+            <div class="attribute-row charisma">
+                <div class="attribute-icon">💜</div>
+                <div class="attribute-info">
+                    <h3>CHARISMA</h3>
+                    <p>Social skills, leadership, and influence. Grow through networking and helping others.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ranks">
+        <h2 class="section-title">CLIMB THE RANKS</h2>
+        <div class="ranks-flow">
+            <span class="rank-badge unranked">Unranked</span>
+            <span class="rank-badge iron">Iron</span>
+            <span class="rank-badge bronze">Bronze</span>
+            <span class="rank-badge silver">Silver</span>
+            <span class="rank-badge gold">Gold</span>
+            <span class="rank-badge platinum">Platinum</span>
+            <span class="rank-badge diamond">Diamond</span>
+            <span class="rank-badge master">Master</span>
+            <span class="rank-badge grandmaster">Grandmaster</span>
+            <span class="rank-badge mythic">MYTHIC</span>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-content">
+            <h2>BEGIN YOUR JOURNEY</h2>
+            <p>Every legend starts somewhere. Download ZERO and take your first step from zero to legendary.</p>
+            <a href="https://github.com/digrajkarmeetwork/zero/releases/download/v1.0.0/app-release.apk" class="download-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.523 0H6.477a1.5 1.5 0 00-1.5 1.5v21a1.5 1.5 0 001.5 1.5h11.046a1.5 1.5 0 001.5-1.5v-21a1.5 1.5 0 00-1.5-1.5zM12 22.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm5-4.5H7V3h10v15z"/>
+                </svg>
+                Download for Android
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Made with 💜 | <a href="https://github.com/digrajkarmeetwork/zero" target="_blank">View on GitHub</a></p>
+    </footer>
+</body>
+</html>
